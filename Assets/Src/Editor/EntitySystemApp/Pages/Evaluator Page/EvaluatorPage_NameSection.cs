@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using Intelligence;
 
 public class EvaluatorPage_NameSection : SectionBase<DecisionEvaluator> {
 
