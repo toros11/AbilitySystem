@@ -95,7 +95,7 @@ public class AssetSerializer : IWriter {
     }
 
     public void WriteToFile(string path) {
-        File.WriteAllText(path, WriteToString());
+//        File.WriteAllText(path, WriteToString());
     }
 
     public string WriteToString() {

@@ -21,6 +21,7 @@ namespace EntitySystem {
 	    [HideInInspector] public ResourceManager resourceManager;
 	    [HideInInspector] public StatusEffectManager statusManager;
 	    [HideInInspector] public InventoryItemManager itemManager;
+		[HideInInspector] public QuestManager questManager;
 
 	    private Vector3 lastPosition;
 	    private bool movedThisFrame = false;
@@ -37,6 +38,7 @@ namespace EntitySystem {
 	        statusManager = statusManager ?? new StatusEffectManager(this);
 	        abilityManager = abilityManager ?? new AbilityManager(this);
             itemManager = itemManager ?? new InventoryItemManager(this);
+            questManager = questManager ?? new QuestManager(this);
 	        emitter = GetComponent<EventEmitter>();
 	        EntityManager.Instance.Register(this);
 
@@ -57,6 +59,9 @@ namespace EntitySystem {
         	if (itemManager != null) {
            	     itemManager.Update();
         	}
+			if (questManager != null) {
+				questManager.Update();
+			}
 	    }
 
 	    public void LateUpdate() {
