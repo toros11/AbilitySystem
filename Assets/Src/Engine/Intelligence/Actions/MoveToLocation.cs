@@ -3,15 +3,16 @@
 namespace Intelligence {
 
     public class MoveToLocation : CharacterAction<PointContext> {
-
+        public float speed = 1;
         public bool autobreak = true;
-        private UnityEngine.AI.NavMeshAgent agent;
+        private UnityEngine.AI.NavMeshAgent agent;        
 
         public override void OnStart() {
             Vector3 location = context.point;
             agent = context.entity.GetComponent<UnityEngine.AI.NavMeshAgent>();
             agent.autoBraking = autobreak;
             agent.SetDestination(location);
+            agent.speed = speed;
         }
 
         public override CharacterActionStatus OnUpdate() {
