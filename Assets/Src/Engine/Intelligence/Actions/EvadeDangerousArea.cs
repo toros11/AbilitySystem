@@ -4,7 +4,8 @@ using UnityEngine.AI;
 namespace Intelligence {
 
     public class EvadeDangerousArea : CharacterAction<PointContext> {
-        public float dangerRadius = 10;
+        public float safeDistance = 10 ;
+
         private NavMeshAgent agent;
 
         public override void OnStart() {
@@ -12,10 +13,10 @@ namespace Intelligence {
         }
 
         public override CharacterActionStatus OnUpdate() {
-            Vector3 point2me = Vector3.Normalize(context.entity.transform.position - context.point);
-            Vector3 safePoint = point2me * dangerRadius;
 
-            agent.destination = safePoint;
+            Vector3 point2me = Vector3.Normalize(context.entity.transform.position - context.point);
+            Vector3 safePoint = point2me * safeDistance;
+            
             return CharacterActionStatus.Running;
         }
     }
