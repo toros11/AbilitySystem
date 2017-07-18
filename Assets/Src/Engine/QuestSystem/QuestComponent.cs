@@ -6,5 +6,8 @@ namespace EntitySystem{
     public abstract class QuestComponent{
         [NonSerialized] public Quest quest;
         [NonSerialized] public Context context;
-    }    
+
+        public virtual void OnActivate() { }
+        public virtual void OnFinish() { }
+    }
 }
