@@ -1,5 +1,7 @@
 ﻿using Intelligence;
 using EntitySystem;
+using System.Collections.Generic;
+using UnityEngine;
 
 public static class DamageFormulas {
     [Pointable]
@@ -19,7 +21,7 @@ public static class DamageFormulas {
 
     [Pointable]
     public static float Strike(SingleTargetContext context, float baseValue) {
-        if (context.target.GetType() == typeof(Character)) {}
         return (baseValue + 10.0f);
     }
 }
+

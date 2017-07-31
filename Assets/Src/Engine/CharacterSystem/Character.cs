@@ -39,7 +39,7 @@ namespace EntitySystem {
     public class BaseParameters
     {
         [SerializeField]
-        private int level;
+        public int level;
         [SerializeField]
         public GameClass gameClass;
 
@@ -55,17 +55,20 @@ namespace EntitySystem {
     public partial class Character : EntitySystemBase {
         public Sprite icon;
         public bool isPlayer;
+        public GameObject prefab;
 
         [SerializeField] public CharacterParameters parameters;
         [SerializeField] public CharacterEquipment equipment;
 
         [SerializeField] public List <InventoryItemCreator> items;
         [SerializeField] public List <AbilityCreator> abilities;
+        [NonSerialized] public List <Ability> skillBook;
 
         public List<CharacterRequirement> requirements;
         public List<CharacterComponent> components;
 
         [NonSerialized] private Context context;
+
         public Type contextType;
 
         public Character() : this ("") {
@@ -76,6 +79,7 @@ namespace EntitySystem {
             Id = id;
             components = new List<CharacterComponent>();
             requirements = new List<CharacterRequirement>();
+            skillBook = new List<Ability>();
         }
 
         public Context GetContext() {
