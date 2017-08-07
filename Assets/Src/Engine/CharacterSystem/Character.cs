@@ -29,6 +29,8 @@ namespace EntitySystem {
         [NonSerialized] public IntRange critChance;
         [NonSerialized] public IntRange critMultipiler;
         [NonSerialized] public IntRange counterAttack;
+        [NonSerialized] public IntRange casterLevel;
+        [NonSerialized] public IntRange meleeLevel;
 
         [NonSerialized] public IntRange physicalSave;
         [NonSerialized] public IntRange magicalSave;

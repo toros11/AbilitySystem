@@ -19,6 +19,16 @@ public class ContextModifier : Modifier<Context> {
     }
 }
 
+public class CharacterLevelBonus : Modifier<Context> {
+    public DiceBase diceModifier;
+    public override void ApplyModifier(ref float value) {
+        diceCreator = new DiceCreator();
+        for (int i = 0; i < 6; i++) {
+            value += (float)diceCreator[diceModifier].Result;
+        }
+    }
+}
+
 public class StrModifier : Modifier<Context> {
     public float bonus;
     public override void ApplyModifier(ref float inValue) {
