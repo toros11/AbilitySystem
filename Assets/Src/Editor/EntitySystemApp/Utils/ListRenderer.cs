@@ -21,8 +21,10 @@ public class ListRenderer {
 
     protected List<string> skipRenderingFields;
     protected bool useFoldout;
+    protected bool continousUpdate;
 
     // Delegates used for more overriding behaviors list renderer
+    public Func<SearchBox> CreateSearchBox { get; set; }
     public Action<SerializedPropertyX, SerializedPropertyX> SetTargetProperty { get; set; }
     public Action<SerializedPropertyX, int> RenderListItem {get; set; }
     public Func<SerializedPropertyX, RenderData, string> GetItemFoldoutLabel { get; set; }
@@ -35,13 +37,11 @@ public class ListRenderer {
     public ListRenderer(bool useFoldout = true) {
         this.useFoldout = useFoldout;
         shown = true;
+        continousUpdate = true;
         skipRenderingFields = new List<string>();
     }
 
     protected string FoldOutLabel { get { return listRoot.name; } }
-    public void SetSearchBox(Func<SearchBox> createSearchBox) {
-        searchBox = createSearchBox();
-    }
 
     public void Initialize() {
         SetTargetProperty = DefaultSetTargetProperty;
@@ -52,6 +52,8 @@ public class ListRenderer {
         CreateDataInstance = DefaultCreateDataInstance;
         AddListItem = DefaultAddListItem;
         Render = DefaultRender;
+
+        searchBox = CreateSearchBox();
     }
 
     public void DefaultSetTargetProperty(SerializedPropertyX rootProperty, SerializedPropertyX listRoot) {
@@ -117,6 +119,9 @@ public class ListRenderer {
         if (GUILayout.Button("Delete", miniLeft)) {
             listRoot.DeleteArrayElementAt(index);
             renderData.RemoveAt(index);
+            if(continousUpdate) {
+                searchBox = CreateSearchBox();
+            }
             return;
         }
         GUI.enabled = index != 0;
@@ -159,6 +164,9 @@ public class ListRenderer {
         SerializedPropertyX newChild = listRoot.GetChildAt(listRoot.ArraySize - 1);
         newChild.Value = component;
         renderData.Add(CreateDataInstance(newChild, true));
+        if(continousUpdate) {
+            searchBox = CreateSearchBox();
+        }
     }
 
     public void DefaultRender() {
