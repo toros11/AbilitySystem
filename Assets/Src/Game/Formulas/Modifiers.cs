@@ -47,15 +47,6 @@ public class OneHandedWeaponModifier : Modifier<SingleTargetContext> {
 
 }
 
-public class SpellAttackBonusModifier : Modifier<SingleTargetContext> {
-    public DiceBase diceLevelBonus;
-    public DiceBase dice;
-    public MethodPointer<SingleTargetContext, float, float> formula;
-    public override void ApplyModifier(ref float inValue) {
-        var characterLevel = context.entity.character.parameters.baseParameters.level;
-    }
-}
-
 public class OneModifier : Modifier<MultiPointContext> {
     public MethodPointer<MultiPointContext, float, float> formula;
     public override void ApplyModifier(ref float inValue) {
