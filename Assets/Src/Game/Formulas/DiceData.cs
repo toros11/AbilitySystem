@@ -1,14 +1,19 @@
 using System.Collections.Generic;
 
 public enum DiceBase {
-    BASE_1d2 = 0,
-    BASE_1d4 = 1,
-    BASE_1d6 = 2,
-    BASE_1d8 = 3,
-    BASE_1d10 = 4,
-    BASE_1d12 = 5,
-    BASE_2d6 = 6,
-    BASE_3d6 = 7
+    BASE_2d2 = 0,
+    BASE_2d4 = 1,
+    BASE_2d6 = 2,
+    BASE_2d8 = 3,
+    BASE_2d10 = 4,
+    BASE_2d12 = 5,
+    BASE_4d6 = 6,
+    BASE_6d6 = 7,
+    BASE_2 = 8,
+    BASE_4 = 9,
+    BASE_6 = 10,
+    BASE_8 = 11,
+    BASE_10 = 12,
 }
 
 public struct DiceData {
@@ -26,6 +31,13 @@ public struct DiceData {
             for(int i = 0; i < _finalValue.Length; i++) sum += _finalValue[i];
             return sum;
         }
+    }
+
+    public DiceData(int value) {
+        _rollCount = 1;
+        _maxValue = value;
+        _minValue = value;
+        _finalValue = new int[_rollCount];
     }
 
     public DiceData(int cnt, int max, int min = 1) {
