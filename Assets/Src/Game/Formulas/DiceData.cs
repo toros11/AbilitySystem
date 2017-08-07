@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 
 public enum DiceBase {
+    // dice roll types
     BASE_2d2 = 0,
     BASE_2d4 = 1,
     BASE_2d6 = 2,
@@ -9,6 +10,7 @@ public enum DiceBase {
     BASE_2d12 = 5,
     BASE_4d6 = 6,
     BASE_6d6 = 7,
+    // static value dices
     BASE_2 = 8,
     BASE_4 = 9,
     BASE_6 = 10,
@@ -25,6 +27,7 @@ public struct DiceData {
     public int MaxValue { get { return _maxValue; } }
     public int MinValue { get { return _minValue; } }
     public int RollCnt { get { return _rollCount; } }
+
     public int Result {
         get {
             int sum = 0;
@@ -37,7 +40,7 @@ public struct DiceData {
         _rollCount = 1;
         _maxValue = value;
         _minValue = value;
-        _finalValue = new int[_rollCount];
+        _finalValue = new int[1];
     }
 
     public DiceData(int cnt, int max, int min = 1) {
