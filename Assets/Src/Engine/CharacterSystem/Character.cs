@@ -36,15 +36,14 @@ namespace EntitySystem {
         [NonSerialized] public IntRange magicalSave;
         [NonSerialized] public IntRange athleticSave;
     }
+    public class ClassList {
+        public List<PlayableClass> classes;
+    }
 
     [System.Serializable]
     public class BaseParameters
     {
-        [SerializeField]
-        public int level;
-        [SerializeField]
-        public GameClass gameClass;
-
+        public ClassList classList;
 
         public IntRange strength;
         public IntRange agility;
