@@ -8,7 +8,7 @@ using System.Collections.Generic;
 /// Abilities, Status Effects, or AI needs to have an entity component
 /// </summary>
 namespace EntitySystem {
-		
+
 	[SelectionBase]
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(EventEmitter))]
@@ -16,20 +16,20 @@ namespace EntitySystem {
 
 	    public string factionId;
 
-        [HideInInspector] public Character character;
+      [HideInInspector] public Character character;
 	    [HideInInspector] public string id;
 
 	    [HideInInspector] public AbilityManager abilityManager;
 	    [HideInInspector] public ResourceManager resourceManager;
 	    [HideInInspector] public StatusEffectManager statusManager;
 	    [HideInInspector] public InventoryItemManager itemManager;
-		[HideInInspector] public QuestManager questManager;
+      [HideInInspector] public QuestManager questManager;
 
 	    private Vector3 lastPosition;
 	    private bool movedThisFrame = false;
-		protected EventEmitter emitter;
+      protected EventEmitter emitter;
 
-		//handle progression of entity, attributes, and resources
+      //handle progression of entity, attributes, and resources
 	    public void Awake() {
 	        if (!string.IsNullOrEmpty(source)) {
 	            new AssetDeserializer(source, false).DeserializeInto("__default__", this);
@@ -39,8 +39,8 @@ namespace EntitySystem {
 	        resourceManager = resourceManager ?? new ResourceManager(this);
 	        statusManager = statusManager ?? new StatusEffectManager(this);
 	        abilityManager = abilityManager ?? new AbilityManager(this);
-            itemManager = itemManager ?? new InventoryItemManager(this);
-            questManager = questManager ?? new QuestManager(this);
+          itemManager = itemManager ?? new InventoryItemManager(this);
+          questManager = questManager ?? new QuestManager(this);
 	        emitter = GetComponent<EventEmitter>();
 	        EntityManager.Instance.Register(this);
 
@@ -59,11 +59,11 @@ namespace EntitySystem {
 	            //resourceManager.Update();
 	        }
         	if (itemManager != null) {
-           	     itemManager.Update();
+              itemManager.Update();
         	}
-			if (questManager != null) {
-				questManager.Update();
-			}
+          if (questManager != null) {
+              questManager.Update();
+          }
 	    }
 
 	    public void LateUpdate() {
@@ -92,25 +92,25 @@ namespace EntitySystem {
 	        get { return abilityManager.ActiveAbility != null && abilityManager.ActiveAbility.IsChanneled; }
 	    }
 
-        public Dictionary<int, InventoryItem> ActiveEquipment {
-            get {
-                return itemManager.Equipment;
-            }
-        }
+      public Dictionary<int, InventoryItem> ActiveEquipment {
+          get {
+              return itemManager.Equipment;
+          }
+      }
 
       public List<KeyValuePair<GameClass, Ability>> SkillBook {
             get { return character.skillBook; }
-        }
+      }
 
-        public CharacterParameters Parameters {
-            get { return character.parameters; }
-        }
+      public CharacterParameters Parameters {
+          get { return character.parameters; }
+      }
 
-		public EventEmitter EventEmitter {
-			get { 
-				return emitter;
-			}
-		}
+      public EventEmitter EventEmitter {
+          get {
+              return emitter;
+          }
+      }
 	    #endregion
 	}
 
