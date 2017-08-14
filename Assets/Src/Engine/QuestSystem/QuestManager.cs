@@ -14,7 +14,6 @@ namespace EntitySystem {
         }
 
         public void Update() {
-
         }
     }
 }

@@ -13,7 +13,7 @@ public class QuestPage_ComponentSection : ListSection<Quest> {
     }
 
     protected override SearchBox CreateSearchBox() {
-        return new SearchBox(null, typeof(StatusEffectComponent), AddListItem, "Add Component", "Components");
+        return new SearchBox(null, typeof(QuestComponent), AddListItem, "Add Component", "Components");
     }
 
 }

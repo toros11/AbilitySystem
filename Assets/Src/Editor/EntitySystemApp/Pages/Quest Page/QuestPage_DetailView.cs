@@ -10,4 +10,5 @@ public class QuestPage_DetailView : DetailView<Quest> {
         sections.Add(new QuestPage_GeneralSection(10f));
         sections.Add(new QuestPage_ComponentSection(10f));
     }
+
 }
