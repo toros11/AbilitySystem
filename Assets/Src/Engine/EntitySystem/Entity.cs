@@ -98,7 +98,7 @@ namespace EntitySystem {
             }
         }
 
-        public List<Ability> SkillBook {
+      public List<KeyValuePair<GameClass, Ability>> SkillBook {
             get { return character.skillBook; }
         }
 

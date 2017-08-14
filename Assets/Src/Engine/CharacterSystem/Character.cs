@@ -38,6 +38,9 @@ namespace EntitySystem {
     }
     public class ClassList {
         public List<PlayableClass> classes;
+        public ClassList() {
+            classes = new List<PlayableClass>();
+        }
     }
 
     [System.Serializable]
@@ -62,8 +65,7 @@ namespace EntitySystem {
         [SerializeField] public CharacterEquipment equipment;
 
         [SerializeField] public List <InventoryItemCreator> items;
-        [SerializeField] public List <AbilityCreator> abilities;
-        [NonSerialized] public List <Ability> skillBook;
+        [NonSerialized] public List <KeyValuePair<GameClass, Ability>> skillBook;
 
         public List<CharacterRequirement> requirements;
         public List<CharacterComponent> components;
@@ -80,8 +82,9 @@ namespace EntitySystem {
             Id = id;
             components = new List<CharacterComponent>();
             requirements = new List<CharacterRequirement>();
-            skillBook = new List<Ability>();
+            skillBook = new List<KeyValuePair<GameClass, Ability>>();
         }
+
 
         public Context GetContext() {
             return context;
