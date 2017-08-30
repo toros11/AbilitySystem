@@ -19,17 +19,16 @@ namespace Intelligence.Actions {
         }
 
         public override CharacterActionStatus OnUpdate() {
+            Debug.Log("looking for: " + context.target.name);
 
-            if (timer.ReadyWithReset(0.5f)) {
+            Debug.Log("ready? " + context.target.name);
 
-                float entityRadius = context.entity.GetComponent<CapsuleCollider>().radius;
-                float targetRadius = context.target.GetComponent<CapsuleCollider>().radius;
-                float desiredOffset = entityRadius + targetRadius;
-                Vector3 toTarget = Vector3.Normalize(context.entity.transform.position - context.target.transform.position);
-                Vector3 desiredLocation = context.target.transform.position + (toTarget * 2);
-                agent.SetDestination(desiredLocation);
-
-            }
+            float entityRadius = context.entity.GetComponent<CapsuleCollider>().radius;
+            float targetRadius = context.target.GetComponent<CapsuleCollider>().radius;
+            float desiredOffset = entityRadius + targetRadius;
+            Vector3 toTarget = Vector3.Normalize(context.entity.transform.position - context.target.transform.position);
+            Vector3 desiredLocation = context.target.transform.position + (toTarget * 2);
+            agent.SetDestination(desiredLocation);
             return CharacterActionStatus.Running;
             //return agent.hasPath && agent.remainingDistance <= 1f ?
             //    CharacterActionStatus.Completed : CharacterActionStatus.Running;
