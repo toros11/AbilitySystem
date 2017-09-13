@@ -7,9 +7,16 @@ public enum ItemType {
 }
 
 public enum WeaponType {
-    Sword, Knife, Club, Polearm
+    None, Sword, Knife, Club, Polearm
 }
 
 public enum ArmorType {
-    Leather, Cloth, Plate, Chain
+    None, Leather, Cloth, Plate, Chain
 }
+
+public enum WeaponCategroy {
+    None = 0,
+    Blunt = 1,
+    Piercing = 2,
+}
+
