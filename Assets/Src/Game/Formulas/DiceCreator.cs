@@ -11,6 +11,7 @@ public class DiceCreator {
         { DiceBase.BASE_2d12, new DiceData(2, 12) },
         { DiceBase.BASE_4d6, new DiceData(4, 6) },
         { DiceBase.BASE_6d6, new DiceData(6, 6) },
+        { DiceBase.BASE_0, new DiceData(0)},
         { DiceBase.BASE_2, new DiceData(2)},
         { DiceBase.BASE_4, new DiceData(4)},
         { DiceBase.BASE_6, new DiceData(6)},

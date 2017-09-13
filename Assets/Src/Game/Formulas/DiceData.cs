@@ -11,11 +11,12 @@ public enum DiceBase {
     BASE_4d6 = 6,
     BASE_6d6 = 7,
     // static value dices
-    BASE_2 = 8,
-    BASE_4 = 9,
-    BASE_6 = 10,
-    BASE_8 = 11,
-    BASE_10 = 12,
+    BASE_0 = 8,
+    BASE_2 = 9,
+    BASE_4 = 10,
+    BASE_6 = 11,
+    BASE_8 = 12,
+    BASE_10 = 13,
 }
 
 public struct DiceData {

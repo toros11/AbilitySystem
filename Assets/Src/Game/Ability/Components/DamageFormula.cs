@@ -9,11 +9,14 @@ public class DamageFormula : AbilityComponent<Context> {
     public bool debugMode;
     public List<Modifier> modifiers;
     public DiceBase inputValue;
+    public MethodPointer<Context, DiceBase> inputFormula;
+    public MethodPointer<Context, int> size;
     public float outputValue;
 
     public override void OnUse() {
         var diceCreator = new DiceCreator();
-        var sum = (float)diceCreator[inputValue].Result;
+        var finalInput = FinalizeDice();
+        var sum = (float)diceCreator[finalInput].Result;
         for(int i = 0; i < modifiers.Count; i++) {
             var j = sum;
             modifiers[i].SetContext(this.context);
