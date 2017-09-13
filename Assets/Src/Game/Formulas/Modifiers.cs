@@ -4,28 +4,40 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum WeaponCategroy {
-    Blunt = 0,
-    Piercing = 1,
-}
-
 public class ContextModifier : Modifier<Context> {
     public int test;
-    public WeaponCategroy cat;
+    public WeaponCategroy weaponCat;
+    public ArmorType armorCat;
     public MethodPointer<Context, float> formula;
 
     public override void ApplyModifier(ref float value) {
-        value *= 2;
+        if(armorCat == ArmorType.Plate || armorCat == ArmorType.Chain) {
+            value *= 2;
+        }
+    }
+}
+
+public class CharacterSizeBonus : Modifier<Context> {
+    public int bonusDice;
+    public override void ApplyModifier(ref float value) {
     }
 }
 
 public class CharacterLevelBonus : Modifier<Context> {
     public DiceBase diceModifier;
+    public float maxLevel;
+    public float maxBonus;
     public override void ApplyModifier(ref float value) {
         diceCreator = new DiceCreator();
-        for (int i = 0; i < 6; i++) {
-            value += (float)diceCreator[diceModifier].Result;
+        var totalBonus = 0f;
+        // var level = context.entity.Parameters.casterLevel;
+        var level = 6f;
+        if (level > maxLevel && maxLevel > 0) level = maxLevel;
+        for (int i = 0; i < level; i++) {
+            totalBonus += (float)diceCreator[diceModifier].Result;
         }
+        if(totalBonus > maxBonus && maxBonus > 0) totalBonus = maxBonus;
+        value += totalBonus; 
     }
 }
 
@@ -44,7 +56,6 @@ public class OneHandedWeaponModifier : Modifier<SingleTargetContext> {
         // if(debugMode) formula.OnAfterDeserialize();
         inValue = formula.Invoke((SingleTargetContext)this.context, inValue + test);
     }
-
 }
 
 public class OneModifier : Modifier<MultiPointContext> {
