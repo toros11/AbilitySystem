@@ -24,5 +24,27 @@ public class DamageFormula : AbilityComponent<Context> {
             if(debugMode) Debug.Log("Apply modifier:"+ modifiers[i].GetType() + " [ input value: " + j + " => " + sum + "]");
         }
         outputValue = sum;
+        // TODO: use this output in a way that makes more sense
+    }
+
+    private DiceBase FinalizeDice() {
+        int newBase;
+        int sizeMod = 0;
+
+        if(debugMode) {
+            size.OnAfterDeserialize();
+            inputFormula.OnAfterDeserialize();
+        }
+        if (size.PointsToMethod) {
+            sizeMod = size.Invoke(this.context);
+        }
+        if (inputFormula.PointsToMethod) {
+            newBase = (int)inputFormula.Invoke(this.context) + sizeMod;
+        } else {
+            newBase = (int)inputValue + sizeMod;
+        }
+
+        if(newBase <= 0) newBase = 0;
+        return (DiceBase)(int)Mathf.Max(0,Mathf.Min(newBase,(int)DiceBase.BASE_6d6));
     }
 }
