@@ -12,8 +12,7 @@ namespace Intelligence {
         [NonSerialized]
         protected DiceCreator diceCreator;
 
-        public abstract void ApplyModifier(ref float inValue);
-
+        public abstract void ApplyModifier<T>(T t, ref float inValue);
         public virtual void SetContext(Context context) {
             this.contextType = context;
         }
@@ -33,5 +32,13 @@ namespace Intelligence {
         public override Type GetContextType() {
             return typeof(T);
         }
+    }
+
+    public abstract class EntityModifier<T,V> : Modifier<T> where T : Context where V : EntitySystemBase {
+        protected V ContextEntity { get { return this.context.entity as V; } }
+    }
+
+    public abstract class AbilityModifier<T> : EntityModifier<T, Ability> where T : Context {
+        // protected Ability Entity { get ; private set; }
     }
 }
