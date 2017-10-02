@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -146,9 +147,57 @@ public class Map<T> : IEnumerable<T> {
         return x >= 0 && x < map.GetLength(0) && y >= 0 && y < map.GetLength(1);
     }
 
+    public override string ToString() {
+        var str = "";
+        for(int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                str += map[x, y] + ", ";
+            }
+            str += "\n";
+        }
+
+        return str;
+    }
+
+    public static Map<int> ReadCSV(string path) {        
+        StreamReader sr = new StreamReader(path);
+        var lines = new List<string[]>();
+        int Row = 0;
+        while (!sr.EndOfStream) {
+            string[] Line = sr.ReadLine().Split(',');
+            lines.Add(Line);
+            Row++;
+        }
+
+        Map<int> map = new Map<int>(lines.Count, lines[0].Length);
+        for(int x=0; x<map.width; x++) {
+            for(int y=0; y<map.height; y++) {
+                map[x, y] = int.Parse(lines[x][y]);
+            }
+        }
+
+        return map;
+    }
+
+    public static Map<int> ReadCSVRaw(string dataRaw) {
+        var lines = new List<string[]>();
+        var ls = dataRaw.Trim().Split('\n');
+        foreach(var l in ls) {
+            lines.Add(l.Trim().Split(','));
+        }
+
+        Map<int> map = new Map<int>(lines.Count, lines[0].Length);
+        for (int x = 0; x < map.width; x++) {
+            for (int y = 0; y < map.height; y++) {
+                map[x, y] = int.Parse(lines[x][y]);
+            }
+        }
+
+        return map;
+    }
 }
 
-[System.Serializable]
+[Serializable]
 public class Coord {
     public int x;
     public int y;
