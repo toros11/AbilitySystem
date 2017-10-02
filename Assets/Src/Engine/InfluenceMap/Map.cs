@@ -20,7 +20,6 @@ public class Map<T> : IEnumerable<T> {
                 map[i, j] = defaultValue;
             }
         }
-
     }
 
     public Map(T[,] map) {
@@ -149,8 +148,8 @@ public class Map<T> : IEnumerable<T> {
 
 }
 
-[Serializable]
-public struct Coord {
+[System.Serializable]
+public class Coord {
     public int x;
     public int y;
 
@@ -167,12 +166,31 @@ public struct Coord {
         return Mathf.Sqrt(DistSqrt(other));
     }
 
+    public override bool Equals(object other) {
+        if(other is Coord)
+            return x == ((Coord)other).x && y == ((Coord)other).y;
+
+        return false;
+    }
+
     public bool Equals(Coord other) {
         return x == other.x && y == other.y;
     }
 
     public override string ToString() {
         return "{ " + x + ", " + y + " }";
+    }
+
+    public static bool operator == (Coord a, Coord b) {
+        return a.x == b.x && a.y == b.y;
+    }
+
+    public static bool operator != (Coord a, Coord b) {
+        return a.x != b.x || a.y != b.y;
+    }
+
+    public override int GetHashCode() {
+        return base.GetHashCode();
     }
 }
 

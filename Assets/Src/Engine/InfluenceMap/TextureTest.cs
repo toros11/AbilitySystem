@@ -16,6 +16,7 @@ public class TextureTest : MonoBehaviour {
     private void Start() {
         map = new Map<Color>(texResolution, texResolution, Color.black);
         tex = new Texture2D(texResolution, texResolution);
+
         tex.filterMode = FilterMode.Point;
         MapProcess(map);
         WriteOnTexture(map, tex);
@@ -46,8 +47,7 @@ public class TextureTest : MonoBehaviour {
 
             var col = map[c];
             var g = col.b * col.r;
-            map[c] = new Color(col.r - g, g, col.b - g);
-
+            map[c] = new Color(col.r, g, col.b);
         });
     }
 
