@@ -52,9 +52,6 @@ public class EntitySystemWindow : EditorWindow {
                 case "CharachterPage":
                     currentPage = new CharacterPage();
                     break;
-                case "QuestPage":
-                    currentPage = new QuestPage();
-                    break;
             }
         }
         if (currentPage == null) {
@@ -130,10 +127,6 @@ public class EntitySystemWindow : EditorWindow {
         }
         else if (GUI.Button(d, "Characters", GetStyle(typeof(CharacterPage)))) {
             currentPage = new CharacterPage();
-            currentPage.OnEnter();
-        }
-        else if (GUI.Button(d, "Quests", GetStyle(typeof(QuestPage)))) {
-            currentPage = new QuestPage();
             currentPage.OnEnter();
         }
 

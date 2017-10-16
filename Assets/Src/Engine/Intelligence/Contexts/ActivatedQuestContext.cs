@@ -1,13 +1,13 @@
-using UnityEngine;
-using EntitySystem;
+// using UnityEngine;
+// using EntitySystem;
 
-namespace Intelligence {
-    public class ActivatedQuestContext : Context {
+// namespace Intelligence {
+//     public class ActivatedQuestContext : Context {
 
-        public Quest quest;
+//         public Quest quest;
 
-        public ActivatedQuestContext(Quest quest, Entity entity) : base(entity) {
-            this.quest = quest;
-        }
-    }
-}
+//         public ActivatedQuestContext(Quest quest, Entity entity) : base(entity) {
+//             this.quest = quest;
+//         }
+//     }
+// }
