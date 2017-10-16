@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -159,8 +160,12 @@ public class Map<T> : IEnumerable<T> {
         return str;
     }
 
-    public static Map<int> ReadCSV(string path) {        
-        StreamReader sr = new StreamReader(path);
+    public static Map<int> ReadCSV(string data) {
+        if (!File.Exists(data)) {
+            return ReadCSVRaw(data);
+        }
+
+        StreamReader sr = new StreamReader(data);
         var lines = new List<string[]>();
         int Row = 0;
         while (!sr.EndOfStream) {
@@ -179,7 +184,20 @@ public class Map<T> : IEnumerable<T> {
         return map;
     }
 
-    public static Map<int> ReadCSVRaw(string dataRaw) {
+    public static string ToCSV(Map<int> map) {
+        StringBuilder csv = new StringBuilder();
+
+        for(int x=0;x< map.width; x++) {
+            for(int y=0; y<map.height; y++) {
+                csv.Append("" + map[x, y] + ",");
+            }
+            csv[csv.Length -1] = '\n';
+        }
+        csv.Remove(csv.Length - 1, 1);
+        return csv.ToString();
+    }
+
+    private static Map<int> ReadCSVRaw(string dataRaw) {
         var lines = new List<string[]>();
         var ls = dataRaw.Trim().Split('\n');
         foreach(var l in ls) {

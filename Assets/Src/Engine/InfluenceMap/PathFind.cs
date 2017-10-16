@@ -5,23 +5,20 @@ using UnityEngine;
 /// <summary>
 /// Class used to find the shortest path in a grid map using the A* algorithm
 /// </summary>
-public class PathFind : MonoBehaviour {
+public class PathFind {
     Map<int> map;
-    Stack<Vector3> ReconstructPath(Map<Coord> cameFrom, Coord startPos, Coord finalPos) {
-        Stack<Vector3> path = new Stack<Vector3>();
+    Stack<Coord> ReconstructPath(Map<Coord> cameFrom, Coord startPos, Coord finalPos) {
+        Stack<Coord> path = new Stack<Coord>();
 
-        path.Push(map.CoordToWorldPoint(finalPos));
+        path.Push(finalPos);
         Coord it = cameFrom[finalPos];
         while(it != startPos) {
             it = cameFrom[it];
-            path.Push(map.CoordToWorldPoint(it));
+            path.Push(it);
         }
         path.Pop();
         path.Pop();
         return path;
-    }
-    public Stack<Vector3> FindShortestPah(Map<int> map, Vector3 startPos, Vector3 target) {
-        return FindShortestPah(map, map.WorldPointToCoord(startPos), map.WorldPointToCoord(target));
     }
 
     /// <summary>
@@ -31,7 +28,7 @@ public class PathFind : MonoBehaviour {
     /// <param name="startPos">Where the search will start</param>
     /// <param name="target">The goal</param>
     /// <returns>The shortest path (if it exists) to target</returns>
-    public Stack<Vector3> FindShortestPah(Map<int> map, Coord startPos, Coord target) {        
+    public Stack<Coord> FindShortestPah(Map<int> map, Coord startPos, Coord target) {        
         this.map = map;
         Map<bool> closedMap = new Map<bool>(map.width, map.height, false);
         Map<Coord> cameFrom = new Map<Coord>(map.width, map.height);

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapTest : MonoBehaviour {
+public class MapCSVTest : MonoBehaviour {
     public TextAsset text;
 
-	void Start () {
+    private void Start() {
         var map = Map<int>.ReadCSV(text.text);
-        print(map);
-	}
+        print(Map<int>.ToCSV(map));
+    }
 }

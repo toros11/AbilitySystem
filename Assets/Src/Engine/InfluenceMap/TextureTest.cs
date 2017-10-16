@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class TextureTest : MonoBehaviour {
     private RawImage rawImage;
-    public Coord[] players;
-    public Coord[] enemies;
     public float intensityMax = 5;
     public int texResolution = 32;
 
@@ -33,17 +31,7 @@ public class TextureTest : MonoBehaviour {
 
     void MapProcess(Map<Color> map) {
         map.MapIter((v, c) => {
-            foreach (var coord in players) {
-                var dist = coord.Dist(c);
-                var inf = Mathf.Clamp01((intensityMax - dist) / intensityMax);
-                map[c] = new Color(map[c].r, 0, Mathf.Max(map[c].b, inf));
-            }
-
-            foreach (var coord in enemies) {
-                var dist = coord.Dist(c);
-                var inf = Mathf.Clamp01((intensityMax - dist) / intensityMax);
-                map[c] = new Color(Mathf.Max(map[c].r, inf), 0, map[c].b);
-            }
+            
 
             var col = map[c];
             var g = col.b * col.r;
