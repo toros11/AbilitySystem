@@ -109,7 +109,7 @@ namespace Devdog.QuestSystemPro.UI
         {
             var inst = Instantiate<TaskProgressRowUI>(task.taskUIPrefab);
             inst.transform.SetParent(tasksContainer);
-            UIUtility.ResetTransform(inst.transform);
+            Devdog.General.UI.UIUtility.ResetTransform(inst.transform);
 
             return inst;
         }
@@ -118,7 +118,7 @@ namespace Devdog.QuestSystemPro.UI
         {
             var inst = Instantiate<RewardRowUI>(rewardGiver.rewardUIPrefab);
             inst.transform.SetParent(rewardsContainer);
-            UIUtility.ResetTransform(inst.transform);
+            Devdog.General.UI.UIUtility.ResetTransform(inst.transform);
 
             return inst;
         }

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Devdog.QuestSystemPro.UI
 {
-    [RequireComponent(typeof(UIWindow))]
+    [RequireComponent(typeof(Devdog.General.UI.UIWindow))]
     public class DetailedQuestWindowUI : MonoBehaviour
     {
         [Header("UI References")]
@@ -28,7 +28,7 @@ namespace Devdog.QuestSystemPro.UI
         protected Dictionary<Quest, QuestButtonUI> uiCache = new Dictionary<Quest, QuestButtonUI>();
         protected Quest selectedQuest;
         protected INavigationHandler navigationHandler;
-        protected UIWindow window;
+        protected Devdog.General.UI.UIWindow window;
 
         protected virtual void Awake()
         {
@@ -38,7 +38,7 @@ namespace Devdog.QuestSystemPro.UI
                 navigationHandler = gameObject.AddComponent<NavigationHandler>();
             }
 
-            window = GetComponent<UIWindow>();
+            window = GetComponent<Devdog.General.UI.UIWindow>();
         }
 
         protected virtual void Start()
@@ -119,7 +119,7 @@ namespace Devdog.QuestSystemPro.UI
         {
             var uiInst = Instantiate<QuestButtonUI>(questButtonUIPrefab);
             uiInst.transform.SetParent(questButtonContainer);
-            UIUtility.ResetTransform(uiInst.transform);
+            Devdog.General.UI.UIUtility.ResetTransform(uiInst.transform);
 
             var questTemp = quest;
             uiInst.button.onClick.AddListener(() =>

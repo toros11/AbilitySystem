@@ -22,13 +22,13 @@ namespace Devdog.QuestSystemPro.Dialogue.UI
             get { return DialogueManager.instance.currentDialogue; }
         }
 
-        public UIWindow window { get; protected set; }
+        public Devdog.General.UI.UIWindow window { get; protected set; }
         protected NodeUIBase currentNodeUI;
 
 
         protected virtual void Awake()
         {
-            window = GetComponent<UIWindow>();
+            window = GetComponent<Devdog.General.UI.UIWindow>();
         }
 
         protected virtual void Start()
@@ -88,8 +88,8 @@ namespace Devdog.QuestSystemPro.Dialogue.UI
 
             currentNodeUI = UnityEngine.Object.Instantiate<NodeUIBase>(after.uiPrefab);
             currentNodeUI.transform.SetParent(nodeUIContainer);
-            UIUtility.ResetTransform(currentNodeUI.transform);
-            UIUtility.InheritParentSize(currentNodeUI.transform);
+            Devdog.General.UI.UIUtility.ResetTransform(currentNodeUI.transform);
+            Devdog.General.UI.UIUtility.InheritParentSize(currentNodeUI.transform);
 
             currentNodeUI.Repaint(after);
         }

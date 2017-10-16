@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 namespace Devdog.QuestSystemPro.UI
 {
-    [RequireComponent(typeof(UIWindow))]
+    [RequireComponent(typeof(Devdog.General.UI.UIWindow))]
     public class QuestWindowUI : QuestWindowUIBase
     {
         [System.Serializable]
         public class OnQuestActionCallback : UnityEvent<Quest>
         {
-            
+
         }
 
 

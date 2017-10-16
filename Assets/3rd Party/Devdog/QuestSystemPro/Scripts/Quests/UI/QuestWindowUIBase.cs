@@ -4,10 +4,10 @@ using UnityEngine.UI;
 
 namespace Devdog.QuestSystemPro.UI
 {
-    [RequireComponent(typeof(UIWindow))]
+    [RequireComponent(typeof(Devdog.General.UI.UIWindow))]
     public abstract class QuestWindowUIBase : MonoBehaviour
     {
-        public UIWindow window { get; protected set; }
+        public Devdog.General.UI.UIWindow window { get; protected set; }
 
         private Quest _selectedQuest;
         public Quest selectedQuest
@@ -31,10 +31,10 @@ namespace Devdog.QuestSystemPro.UI
                 }
             }
         }
-        
+
         protected virtual void Awake()
         {
-            window = GetComponent<UIWindow>();
+            window = GetComponent<Devdog.General.UI.UIWindow>();
             window.OnShow += WindowOnShow;
         }
 
@@ -48,7 +48,7 @@ namespace Devdog.QuestSystemPro.UI
 
         protected virtual void Start()
         {
-            
+
         }
 
         protected virtual void OnSelectedQuestStatusChanged(QuestStatus before, Quest quest)
@@ -81,7 +81,7 @@ namespace Devdog.QuestSystemPro.UI
         {
             var inst = Instantiate<T>(prefab);
             inst.transform.SetParent(parent);
-            UIUtility.ResetTransform(inst.transform);
+            Devdog.General.UI.UIUtility.ResetTransform(inst.transform);
 
             return inst;
         }
