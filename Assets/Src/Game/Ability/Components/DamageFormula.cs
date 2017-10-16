@@ -38,7 +38,7 @@ public class DamageFormula : AbilityComponent<Context> {
             inputFormula.OnAfterDeserialize();
         }
         if (inputFormula.PointsToMethod) {
-            newBase = (float)inputFormula.Invoke(this.context);
+            input = (float)inputFormula.Invoke(this.context);
         }
         if (size.PointsToMethod) {
             newBase = input + size.Invoke(this.context);

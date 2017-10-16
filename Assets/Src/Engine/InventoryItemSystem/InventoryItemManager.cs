@@ -24,14 +24,17 @@ namespace EntitySystem {
             if (!item.isEquipable) return;
             if (item.GetInventoryItemComponent<Equipable>().equipSlot != slot) return;
             if (item.itemState == InventoryItemState.InSlot) return;
+
+            var slotIdx = (int)slot;
             item.Owner = entity;
             item.Equip();
 
-            if (equiped.ContainsKey((int)slot)) {
-                equiped[(int)slot].Unequip();
+            if (equiped.ContainsKey(slotIdx)) {
+                equiped[slotIdx].Unequip();
             }
 
-            equiped[(int)slot] = item;
+            equiped[slotIdx] = item;
+            AddItem(item.Id);
         }
 
         public void UnequipItem(EquipmentSlot slot) {}
