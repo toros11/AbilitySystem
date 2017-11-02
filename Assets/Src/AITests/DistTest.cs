@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapTest : MonoBehaviour {
+public class DistTest : MonoBehaviour {
+    public Coord a, b;
+
 	void Start () {
-        var map = new Map<int>(32, 32, 0);
-        print(map);
+        print(a.TileDist(b));
 	}
 }

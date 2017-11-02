@@ -143,7 +143,11 @@ public class Map<T> : IEnumerable<T> {
             }
         }
     }
-    
+
+    public bool IsInMapRange(Coord c) {
+        return c.x >= 0 && c.x < map.GetLength(0) && c.y >= 0 && c.y < map.GetLength(1);
+    }
+
     public bool IsInMapRange(int x, int y) {
         return x >= 0 && x < map.GetLength(0) && y >= 0 && y < map.GetLength(1);
     }
@@ -215,8 +219,8 @@ public class Map<T> : IEnumerable<T> {
     }
 }
 
-[Serializable]
-public class Coord {
+[System.Serializable]
+public struct Coord {
     public int x;
     public int y;
 
@@ -225,8 +229,16 @@ public class Coord {
         this.y = y;
     }
 
+    public static Coord operator+(Coord a, Coord b) {
+        return new Coord(a.x + b.x, a.y + b.y);
+    }
+
     public float DistSqrt(Coord other) {
         return Mathf.Pow(x - other.x, 2) + Mathf.Pow(y - other.y, 2);
+    }
+
+    public float TileDist(Coord other) {
+        return Mathf.Abs(x - other.x) + Mathf.Abs(y - other.y);
     }
 
     public float Dist(Coord other) {
@@ -258,6 +270,27 @@ public class Coord {
 
     public override int GetHashCode() {
         return base.GetHashCode();
+    }
+
+    public static Coord up {
+        get {
+            return new Coord(0, 1);
+        }
+    }
+    public static Coord down {
+        get {
+            return new Coord(0, -1);
+        }
+    }
+    public static Coord left {
+        get {
+            return new Coord(-1, 0);
+        }
+    }
+    public static Coord right {
+        get {
+            return new Coord(1, 0);
+        }
     }
 }
 
