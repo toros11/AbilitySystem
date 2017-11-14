@@ -10,7 +10,6 @@ public class SingleTargetDamage : AbilityComponent<SingleTargetContext> {
     public MethodPointer<SingleTargetContext, float, float> damageFormula;
     // public MethodPointer<SingleTargetContext, DiceBase, int> damgeFormula;
 
-    public List<Modifier> modifiers;
     public override void OnCastCompleted() {
         // if (damageFormula == null) return;
         // float damage = damageFormula.Invoke(baseDamage, context);

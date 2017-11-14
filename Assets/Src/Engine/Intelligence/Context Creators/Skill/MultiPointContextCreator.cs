@@ -10,7 +10,7 @@ namespace Intelligence {
         public Projector targetSelectorPrefab;
         public int numPoints;
         public float maxDistance;
-        
+
         private Projector targetSelector;
         private List<Vector3> pointList;
         private List<GameObject> pointMarkers;

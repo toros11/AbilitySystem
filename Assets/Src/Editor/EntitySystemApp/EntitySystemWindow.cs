@@ -103,7 +103,7 @@ public class EntitySystemWindow : EditorWindow {
     }
 
     void RenderHeaderBar(Rect rect) {
-        HorizontalRectLayout d = new HorizontalRectLayout(rect, 6);
+        HorizontalRectLayout d = new HorizontalRectLayout(rect, 7);
 
         if (GUI.Button(d, "Abilities", GetStyle(typeof(AbilityPage)))) {
             currentPage = new AbilityPage();

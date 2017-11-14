@@ -47,16 +47,33 @@ public static class EditorGUILayoutX {
             if (property.Value == null) {
                 property.Value = Array.CreateInstance(type.GetElementType(), 1);
             }
-            property.isExpanded = EditorGUILayout.Foldout(property.isExpanded, label.text);
+            var l = label.text + "(" + property.ArraySize + ")";
+            property.isExpanded = EditorGUILayout.Foldout(property.isExpanded, l);
             if (property.isExpanded) {
-                EditorGUI.indentLevel++;
                 property.ArraySize = EditorGUILayout.IntField(new GUIContent("Size"), property.ArraySize);
+                if (GUILayout.Button("+", GUILayout.Width(20f), GUILayout.Height(15f))) {
+                    property.ArraySize++;
+                }
+                EditorGUI.indentLevel++;
                 for (int i = 0; i < property.ArraySize; i++) {
-                    SerializedPropertyX child = property.GetChildAt(i);
-                    PropertyField(child, child.label, child.isExpanded, options);
+                    GUILayout.BeginHorizontal();
+                    if (GUILayout.Button("-", GUILayout.Width(20f), GUILayout.Height(15f))) {
+                        property.DeleteArrayElementAt(i);
+                    }
+                    EditorGUILayoutX.PropertyField(property.GetChildAt(i));
+                    GUILayout.EndHorizontal();
                 }
                 EditorGUI.indentLevel--;
+
+               // EditorGUI.indentLevel++;
+               //  for (int i = 0; i < property.ArraySize; i++) {
+               //      SerializedPropertyX child = property.GetChildAt(i);
+               //      PropertyField(child, child.label, child.isExpanded, options);
+               // //  }
+               //  EditorGUI.indentLevel--;
             }
+
+
         }
         else if (type.IsEnum) {
             property.Value = EditorGUILayout.EnumPopup(label, (Enum)property.Value, options);
