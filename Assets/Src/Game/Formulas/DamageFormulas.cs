@@ -23,5 +23,15 @@ public static class DamageFormulas {
     public static float Strike(SingleTargetContext context, float baseValue) {
         return (baseValue + 10.0f);
     }
+
+    [Pointable]
+    public static DiceBase GetWeaponDice(Context context) {
+        return DiceBase.BASE_10;
+    }
+
+    [Pointable]
+    public static int GetCharacterSize(Context context) {
+        return -1;
+    }
 }
 

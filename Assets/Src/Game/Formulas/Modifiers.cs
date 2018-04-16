@@ -4,57 +4,71 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum WeaponCategroy {
-    Blunt = 0,
-    Piercing = 1,
-}
-
 public class ContextModifier : Modifier<Context> {
     public int test;
-    public WeaponCategroy cat;
+    public WeaponCategroy weaponCat;
+    public ArmorType armorCat;
     public MethodPointer<Context, float> formula;
 
-    public override void ApplyModifier(ref float value) {
-        value *= 2;
+    public override void ApplyModifier<T>(T t, ref float inValue) {
+        if(armorCat == ArmorType.Plate || armorCat == ArmorType.Chain) {
+            inValue *= 2;
+        }
     }
 }
 
-public class StrModifier : Modifier<Context> {
+public class CharacterSizeBonus : AbilityModifier<Context> {
+    public int bonusDice;
+    public override void ApplyModifier<T>(T t, ref float inValue) {
+    }
+}
+
+public class CharacterLevelBonus : AbilityModifier<Context> {
+    public DiceBase diceModifier;
+    public float maxLevel;
+    public float maxBonus;
+    public override void ApplyModifier<T>(T t, ref float inValue) {
+        diceCreator = new DiceCreator();
+        var totalBonus = 0f;
+        var casterLevel = 5f; // ContextEntity.Caster.Parameters.casterLevel;
+        var level = MaxValue(casterLevel, maxLevel);
+        for (int i = 0; i < level; i++) {
+            totalBonus += (float)diceCreator[diceModifier].Result;
+        }
+        inValue += MaxValue(totalBonus, maxBonus);
+    }
+
+    private float MaxValue(float value, float maxValue) {
+        return (maxValue > 0) ? Mathf.Min(value, maxValue) : value;
+    }
+}
+
+public class StrModifier : AbilityModifier<Context> {
     public float bonus;
-    public override void ApplyModifier(ref float inValue) {
+    public override void ApplyModifier<T>(T t, ref float inValue) {
         inValue = inValue * bonus;
     }
 }
 
-public class OneHandedWeaponModifier : Modifier<SingleTargetContext> {
+public class OneHandedWeaponModifier : AbilityModifier<SingleTargetContext> {
     public float test;
     public MethodPointer<SingleTargetContext, float, float> formula;
-    public override void ApplyModifier(ref float inValue) {
+    public override void ApplyModifier<T>(T t, ref float inValue) {
         // while testing
         // if(debugMode) formula.OnAfterDeserialize();
         inValue = formula.Invoke((SingleTargetContext)this.context, inValue + test);
     }
-
 }
 
-public class SpellAttackBonusModifier : Modifier<SingleTargetContext> {
-    public DiceBase diceLevelBonus;
-    public DiceBase dice;
-    public MethodPointer<SingleTargetContext, float, float> formula;
-    public override void ApplyModifier(ref float inValue) {
-        var characterLevel = context.entity.character.parameters.baseParameters.level;
-    }
-}
-
-public class OneModifier : Modifier<MultiPointContext> {
+public class OneModifier : AbilityModifier<MultiPointContext> {
     public MethodPointer<MultiPointContext, float, float> formula;
-    public override void ApplyModifier(ref float inValue) {
+    public override void ApplyModifier<T>(T t, ref float inValue) {
     }
 }
 
-public class TwoModifier : Modifier<DirectionalContext> {
+public class TwoModifier : AbilityModifier<DirectionalContext> {
     public MethodPointer <DirectionalContext, float, float, float> formula;
-    public override void ApplyModifier(ref float inValue) {
+    public override void ApplyModifier<T>(T t, ref float inValue) {
     }
 }
 

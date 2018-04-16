@@ -25,9 +25,13 @@ namespace EntitySystem {
                 character.equipment.weapon,
             };
 
-            for (int i = 0; i < character.abilities.Count; i++) {
-                SkillBook.Add(character.abilities[i].Create());
-                SkillBook[i].Caster = this;
+            var allClasses = character.parameters.baseParameters.classList.classes;
+            for(int i = 0; i < allClasses.Count ; i++) {
+                var c = allClasses[i];
+                for(int j = 0; j < c.abilities.Length; j++) {
+                    SkillBook.Add(new KeyValuePair<GameClass, Ability>(c.GameClass, c.abilities[j].Create()));
+                    SkillBook.Last().Value.Caster = this;
+                }
             }
 
             for (int i = 0; i < equipTable.Length; i++) {

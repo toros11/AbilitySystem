@@ -48,9 +48,18 @@ public class DamageFormulaDrawer : PropertyDrawerX {
 
             listRoot = source["modifiers"];
             listRenderer = new ListRenderer();
+            listRenderer.CreateSearchBox = () => {
+                Type targetType = rootProperty["contextType"].GetValue<Type>();
+                var searchSet = Reflector.FindSubClasses(typeof(Modifier));
+                searchSet = searchSet.FindAll((modifierType) => {
+                        var dummy = Activator.CreateInstance(modifierType) as Modifier;
+                        return dummy.GetContextType().IsAssignableFrom(targetType);
+                    });
+                return new SearchBox(null, searchSet, listRenderer.AddListItem, "Add Modifier", "Modifiers");
+            };
+
             listRenderer.Initialize();
             listRenderer.SetTargetProperty(rootProperty, listRoot);
-            listRenderer.SetSearchBox(CreateSearchBox);
             skipRenderingFields = new List<string>();
             skipRenderingFields.Add("modifiers");
             skipRenderingFields.Add("contextType");
@@ -58,16 +67,6 @@ public class DamageFormulaDrawer : PropertyDrawerX {
             debugMode = source.FindProperty("debugMode");
             initialized = true;
         }
-    }
-
-    private SearchBox CreateSearchBox() {
-        Type targetType = rootProperty["contextType"].GetValue<Type>();
-        var searchSet = Reflector.FindSubClasses(typeof(Modifier));
-        searchSet = searchSet.FindAll((modifierType) => {
-                var dummy = Activator.CreateInstance(modifierType) as Modifier;
-                return dummy.GetContextType().IsAssignableFrom(targetType);
-            });
-        return new SearchBox(null, searchSet, listRenderer.AddListItem, "Add Modifier", "Modifiers");
     }
 
     private void CalculateButton(SerializedPropertyX property) {
