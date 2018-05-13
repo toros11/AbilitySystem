@@ -34,4 +34,3 @@ public static class DamageFormulas {
         return -1;
     }
 }
-

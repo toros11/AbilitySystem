@@ -15,22 +15,22 @@ namespace EntitySystem {
 	public partial class Entity : MonoBehaviour {
 
 	    public string factionId;
+      public CharacterCreator character;
 
-      [HideInInspector] public Character character;
 	    [HideInInspector] public string id;
 
 	    [HideInInspector] public AbilityManager abilityManager;
 	    [HideInInspector] public ResourceManager resourceManager;
 	    [HideInInspector] public StatusEffectManager statusManager;
 	    [HideInInspector] public InventoryItemManager itemManager;
+	    [HideInInspector] public CharacterManager characterManager;
 
 	    private Vector3 lastPosition;
 	    private bool movedThisFrame = false;
       protected EventEmitter emitter;
 
-      //handle progression of entity, attributes, and resources
-	    public void Awake() {
-	        if (!string.IsNullOrEmpty(source)) {
+      private void internalAwake() {
+          if (!string.IsNullOrEmpty(source)) {
 	            new AssetDeserializer(source, false).DeserializeInto("__default__", this);
 	        } else {
 	            new SerializedObjectX(this).ApplyModifiedProperties();
@@ -39,10 +39,19 @@ namespace EntitySystem {
 	        statusManager = statusManager ?? new StatusEffectManager(this);
 	        abilityManager = abilityManager ?? new AbilityManager(this);
           itemManager = itemManager ?? new InventoryItemManager(this);
+          if(character != null) {
+              characterManager = characterManager ?? new CharacterManager(this, character);
+              characterManager.Spawn();
+          }
 	        emitter = GetComponent<EventEmitter>();
 	        EntityManager.Instance.Register(this);
 
-	       // gameObject.layer = LayerMask.NameToLayer("Entity");
+
+      }
+      //handle progression of entity, attributes, and resources
+	    public void Awake() {
+          internalAwake();
+          // gameObject.layer = LayerMask.NameToLayer("Entity");
 	    }
 
 	    public virtual void Update() {
@@ -59,6 +68,10 @@ namespace EntitySystem {
         	if (itemManager != null) {
               itemManager.Update();
         	}
+        	if (characterManager != null) {
+              characterManager.Update();
+        	}
+
 	    }
 
 	    public void LateUpdate() {
@@ -94,11 +107,11 @@ namespace EntitySystem {
       }
 
       public List<KeyValuePair<GameClass, Ability>> SkillBook {
-            get { return character.skillBook; }
+          get { return characterManager.SkillBook; }
       }
 
       public CharacterParameters Parameters {
-          get { return character.parameters; }
+          get { return characterManager.Character.parameters; }
       }
 
       public EventEmitter EventEmitter {

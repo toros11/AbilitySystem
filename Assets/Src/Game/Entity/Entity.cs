@@ -4,7 +4,6 @@ using UnityEngine;
 namespace EntitySystem {
     //todo make custom inspector and change back to FloatRange
     public partial class Entity {
-
         [UnitySerialized] [HideInInspector] public string source;
         [NonSerialized] public bool initialized;
         [NonSerialized] public Entity target;
@@ -14,10 +13,8 @@ namespace EntitySystem {
                 initialized = true;
                 new AssetDeserializer(source, false).DeserializeInto("__default__", this);
             }
-            Init();
-        }
-
-        public virtual void Init() {
+            // character needs to be loaded after deserializing
+            characterManager.Init();
         }
     }
 }

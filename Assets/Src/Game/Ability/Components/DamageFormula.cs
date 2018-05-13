@@ -8,19 +8,26 @@ using System;
 public class DamageFormula : AbilityComponent<Context> {
     public bool debugMode;
     public List<Modifier> modifiers;
-    public DiceBase inputValue;
+    public DiceBase diceInputValue;
     public MethodPointer<Context, DiceBase> inputFormula;
     public MethodPointer<Context, int> size;
     public float outputValue;
+    public CharacterCreator user;
+    public CharacterCreator target;
 
     public override void OnUse() {
+        var userParams = user.Create().parameters.baseParameters;
+        var targetParams = target.Create().parameters.baseParameters;
+
         var diceCreator = new DiceCreator();
-        var finalizedInput = FinalizeDice((float)inputValue);
+        var finalizedInput = FinalizeDice((float)diceInputValue);
         var sum = (float)diceCreator[finalizedInput].Result;
 
         for(int i = 0; i < modifiers.Count; i++) {
             var j = sum;
             modifiers[i].SetContext(this.context);
+            modifiers[i].SetParameters(userParams);
+            modifiers[i].SetTargetParams(targetParams);
             modifiers[i].ApplyModifier<Ability>(ability, ref sum);
             if(debugMode)
                 Debug.Log("Apply modifier:"+ modifiers[i].GetType() + " [ input value: " + j + " => " + sum + "]");

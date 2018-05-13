@@ -12,6 +12,12 @@ namespace Intelligence {
         [NonSerialized]
         protected DiceCreator diceCreator;
 
+        [NonSerialized]
+        public BaseParameters user;
+
+        [NonSerialized]
+        public BaseParameters target;
+
         public abstract void ApplyModifier<T>(T t, ref float inValue);
         public virtual void SetContext(Context context) {
             this.contextType = context;
@@ -19,6 +25,15 @@ namespace Intelligence {
 
         public virtual Type GetContextType() {
             return typeof(Context);
+        }
+
+        // debug function
+        public virtual void SetParameters(BaseParameters p) {
+            this.user =p;
+        }
+
+        public virtual void SetTargetParams(BaseParameters p) {
+            this.target = p;
         }
     }
 
@@ -40,5 +55,7 @@ namespace Intelligence {
 
     public abstract class AbilityModifier<T> : EntityModifier<T, Ability> where T : Context {
         // protected Ability Entity { get ; private set; }
+
+
     }
 }

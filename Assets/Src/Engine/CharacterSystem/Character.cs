@@ -85,7 +85,6 @@ namespace EntitySystem {
             skillBook = new List<KeyValuePair<GameClass, Ability>>();
         }
 
-
         public Context GetContext() {
             return context;
         }

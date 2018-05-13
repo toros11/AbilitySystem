@@ -43,10 +43,23 @@ public class CharacterLevelBonus : AbilityModifier<Context> {
     }
 }
 
-public class StrModifier : AbilityModifier<Context> {
-    public float bonus;
+public class HpModifier : AbilityModifier<Context> {
     public override void ApplyModifier<T>(T t, ref float inValue) {
-        inValue = inValue * bonus;
+        if (this.user != null) {
+            inValue = inValue + (this.user.constitution.Value);
+        }
+    }
+}
+
+public class StrModifier : AbilityModifier<Context> {
+    public override void ApplyModifier<T>(T t, ref float inValue) {
+        int baseStr = this.user.strength.Value;
+        baseStr -= 20;
+        baseStr /= 2;
+        baseStr /= 2;
+        baseStr *= 5;
+
+        inValue = inValue + baseStr;
     }
 }
 
@@ -71,4 +84,3 @@ public class TwoModifier : AbilityModifier<DirectionalContext> {
     public override void ApplyModifier<T>(T t, ref float inValue) {
     }
 }
-

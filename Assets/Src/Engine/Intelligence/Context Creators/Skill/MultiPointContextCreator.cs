@@ -71,5 +71,4 @@ namespace Intelligence {
             Object.Destroy(targetSelector.gameObject);
         }
     }
-
 }

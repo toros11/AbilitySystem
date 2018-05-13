@@ -11,10 +11,10 @@ public class Equipable : InventoryItemComponent {
     public BaseParameters setParamsTo;
 
     public override void OnEquip() {
-        var c = item.Owner.character;
-        c.parameters.baseParameters.strength.SetModifier("Protein Powder", FloatModifier.Percent(50.2f));
+        // item.Owner.Parameters.baseParameters.strength.SetModifier("Protein Powder", FloatModifier.Percent(50.2f));
     }
 
     public override void OnRemove() {
+
     }
 }

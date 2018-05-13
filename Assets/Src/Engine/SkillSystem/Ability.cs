@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Intelligence;
 
 namespace EntitySystem {
-	
+
 	public partial class Ability : EntitySystemBase {
 
 	    [SerializeField] protected int nextCharge;
@@ -96,9 +96,9 @@ namespace EntitySystem {
 	    }
 
       // method used for debugging
-      public void Use() {
-          OnUse();
-      }
+      // public void Use() {
+      //     OnUse();
+      // }
 
 	    public bool Use(Context context) {
 	        if (!contextType.IsAssignableFrom(context.GetType())) {
