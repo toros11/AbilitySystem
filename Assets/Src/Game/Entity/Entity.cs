@@ -15,6 +15,7 @@ namespace EntitySystem {
             }
             // character needs to be loaded after deserializing
             characterManager.Init();
+            characterManager.Spawn();
         }
     }
 }

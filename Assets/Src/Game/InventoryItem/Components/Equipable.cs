@@ -13,8 +13,8 @@ public class Equipable : InventoryItemComponent {
     public BaseParameters setParamsTo;
 
     public override void OnEquip() {
-        Debug.Log("weapon category" + weaponCategory);
-        Debug.Log("damageType category" + damageType);
+        Debug.Log("weapon category: " + weaponCategory);
+        Debug.Log("damageType category: " + damageType);
         // item.Owner.Parameters.baseParameters.strength.SetModifier("Protein Powder", FloatModifier.Percent(50.2f));
     }
 

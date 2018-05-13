@@ -59,7 +59,7 @@ namespace EntitySystem {
             var classes = character.parameters.baseParameters.classList.classes;
             for(int i = 0; i < classes.Count ; i++) {
                 var c = classes[i];
-                if (c.abilities.Length < 1) continue;
+                if (c == null || c.abilities == null || c.abilities.Length == 0) continue;
                 for(int j = 0; j < c.abilities.Length; j++) {
                     var skill = c.abilities[j].Create();
                     var entry = new KeyValuePair<GameClass, Ability>(c.GameClass, skill);

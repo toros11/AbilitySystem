@@ -21,8 +21,12 @@ public class EquipableDrawer : PropertyDrawerX {
     public override void OnGUI(SerializedPropertyX property, GUIContent label) {
         Initialize(property);
         if((EquipmentSlot)equipSlot.Value == EquipmentSlot.Weapon) {
-            damageType.Value = (DamageType)0;
-            weaponCategory.Value = (WeaponCategory)0;
+            if (damageType.Value == null)  {
+                damageType.Value = (DamageType)0;
+            }
+            if (weaponCategory.Value == null) {
+                weaponCategory.Value = (WeaponCategory)0;
+            }
 
             skipRenderingFields.Clear();
         } else {

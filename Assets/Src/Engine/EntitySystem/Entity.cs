@@ -41,7 +41,6 @@ namespace EntitySystem {
           itemManager = itemManager ?? new InventoryItemManager(this);
           if(character != null) {
               characterManager = characterManager ?? new CharacterManager(this, character);
-              characterManager.Spawn();
           }
 	        emitter = GetComponent<EventEmitter>();
 	        EntityManager.Instance.Register(this);

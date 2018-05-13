@@ -5,8 +5,7 @@ using System;
 
 
 namespace EntitySystem {
-    public class CharacterEquipment
-    {
+    public class CharacterEquipment {
         public InventoryItemCreator head;
         public InventoryItemCreator shoulder;
         public InventoryItemCreator feet;
@@ -22,6 +21,7 @@ namespace EntitySystem {
 
     public class CharacterParameters
     {
+        public RaceSize raceSize;
         public BaseParameters baseParameters;
 
         [NonSerialized] public IntRange armor;
@@ -60,6 +60,7 @@ namespace EntitySystem {
         public Sprite icon;
         public bool isPlayer;
         public GameObject prefab;
+        public DecisionPackageCreator decisionPackage;
 
         [SerializeField] public CharacterParameters parameters;
         [SerializeField] public CharacterEquipment equipment;

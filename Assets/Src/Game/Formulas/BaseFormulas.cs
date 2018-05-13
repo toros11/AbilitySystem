@@ -41,4 +41,14 @@ public static class BaseFormulas {
     public static int GetWeaponBonus(InventoryItem weapon) {
         return -1;
     }
+
+
+    public static List<PlayableClass> GetClasses(Character c) {
+        var classList = c.parameters.baseParameters.classList.classes;
+        if (classList.Count > 1){
+            Debug.LogWarning("Multiple classes not fully supported yet, might break");
+        }
+
+        return classList;
+    }
 }
