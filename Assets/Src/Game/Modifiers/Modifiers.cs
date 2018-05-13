@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ContextModifier : Modifier<Context> {
     public int test;
-    public WeaponCategroy weaponCat;
+    public WeaponCategory weaponCat;
     public ArmorType armorCat;
     public MethodPointer<Context, float> formula;
 

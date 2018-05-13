@@ -6,17 +6,24 @@ public enum ItemType {
     Socketable = 0x8,
 }
 
+[System.Flags]
+public enum WeaponCategory {
+    OneHand = 0x1,
+    TwoHand = 0x2,
+    Ranged = 0x4,
+}
+
 public enum WeaponType {
-    None, Sword, Knife, Club, Polearm
+    Sword, Knife, Club, Polearm
 }
 
 public enum ArmorType {
     None, Leather, Cloth, Plate, Chain
 }
 
-public enum WeaponCategroy {
-    None = 0,
-    Blunt = 1,
-    Piercing = 2,
+[System.Flags]
+public enum DamageType {
+    Blunt = 0x1,
+    Piercing = 0x2,
+    Slashing = 0x4,
 }
-

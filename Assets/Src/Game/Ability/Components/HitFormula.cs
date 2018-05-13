@@ -11,59 +11,29 @@ public class HitFormula : AbilityComponent<Context> {
     public float outputValue;
     public CharacterCreator user;
     public CharacterCreator target;
-    public MethodPointer<Context, BaseParameters, BaseParameters, float> hitFormula;
+    public MethodPointer<Context, Character, Character, float> hitFormula;
 
     public override void OnUse() {
         if (this.user == null || this.target == null) return;
-
-        var userParams = user.Create().parameters.baseParameters;
-        var targetParams = target.Create().parameters.baseParameters;
+        // temporary
+        var u = MockCharacter(user);
+        var t = MockCharacter(target);
 
         if(debugMode) {
             hitFormula.OnAfterDeserialize();
-            }
-        if (hitFormula.PointsToMethod) {
-            outputValue = (float)hitFormula.Invoke(this.context, userParams, targetParams);
         }
-
-
-        // var diceCreator = new DiceCreator();
-        // var finalizedInput = FinalizeDice((float)diceInputValue);
-        // var sum = (float)diceCreator[finalizedInput].Result;
-
-        // for(int i = 0; i < modifiers.Count; i++) {
-        //     var j = sum;
-        //     modifiers[i].SetContext(this.context);
-        //     modifiers[i].SetParameters(userParams);
-        //     modifiers[i].SetTargetParams(targetParams);
-        //     modifiers[i].ApplyModifier<Ability>(ability, ref sum);
-        //     if(debugMode)
-        //         Debug.Log("Apply modifier:"+ modifiers[i].GetType() + " [ input value: " + j + " => " + sum + "]");
-        // }
-        // output
-        // Value = sum;
-        // TODO: use this output in a way that makes more sense
+        if (hitFormula.PointsToMethod) {
+            outputValue = (float)hitFormula.Invoke(this.context, u, t);
+        }
     }
 
-    // private DiceBase FinalizeDice(float input) {
-    //     float newBase = input;
-    //     float sizeMod = 0;
+    private Character MockCharacter(CharacterCreator character) {
+        var c = character.Create();
+        var equipTable = new InventoryItemCreator[] {
+            c.equipment.body,
+            c.equipment.weapon,
+        };
 
-    //     if(debugMode) {
-    //         size.OnAfterDeserialize();
-    //         inputFormula.OnAfterDeserialize();
-    //     }
-    //     if (inputFormula.PointsToMethod) {
-    //         input = (float)inputFormula.Invoke(this.context);
-    //     }
-    //     if (size.PointsToMethod) {
-    //         newBase = input + size.Invoke(this.context);
-    //         if (input < (float)DiceBase.BASE_0) {
-    //             newBase = Mathf.Max(0,Mathf.Min(newBase,(float)DiceBase.BASE_6d6));
-    //         } else {
-    //             newBase = Mathf.Max((float)DiceBase.BASE_0,Mathf.Min(newBase,(float)DiceBase.BASE_10));
-    //         }
-    //     }
-    //     return (DiceBase)newBase;
-    // }
+        return c;
+    }
 }

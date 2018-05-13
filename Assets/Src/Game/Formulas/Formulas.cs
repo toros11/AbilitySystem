@@ -15,23 +15,32 @@ public static class Formulas {
     }
 
     [Pointable]
-    public static float MeleeHitChance(Context context, BaseParameters user, BaseParameters target) {
-        var hitChance = BaseFormulas.GetStrBonus(user.strength.Value);
-        return (float)(hitChance * 5);
-    }
-
-    [Pointable]
-    public static float MagicHitChance(Context context, BaseParameters user, BaseParameters target) {
+    public static float PhysHitChance(Context context, Character user, Character target) {
+        var weapon = context.entity.ActiveEquipment[(int)EquipmentSlot.Weapon];
+        var weaponBonus = BaseFormulas.GetWeaponBonus(weapon);
         return -1;
     }
 
     [Pointable]
-    public static float RangeHitChance(Context context, BaseParameters user, BaseParameters target) {
+    public static float MeleeHitChance(Context context, Character user, Character target) {
+        var baseParams = user.parameters.baseParameters;
+        float hitChance = BaseFormulas.GetStrBonus(baseParams.strength.Value);
+        hitChance = hitChance * 5;
+        return hitChance;
+    }
+
+    [Pointable]
+    public static float MagicHitChance(Context context, Character user, Character target) {
         return -1;
     }
 
     [Pointable]
-    public static float AlwaysHit(Context context, BaseParameters user, BaseParameters target) {
+    public static float RangeHitChance(Context context, Character user, Character target) {
+        return -1;
+    }
+
+    [Pointable]
+    public static float AlwaysHit(Context context, Character user, Character target) {
         return 99999;
     }
 
