@@ -24,15 +24,18 @@ public class CharacterSizeBonus : AbilityModifier<Context> {
 }
 
 public class CharacterLevelBonus : AbilityModifier<Context> {
+    public int interval = 1;
     public DiceBase diceModifier;
     public float maxLevel;
     public float maxBonus;
+    public float casterLevel;
+
     public override void ApplyModifier<T>(T t, ref float inValue) {
         diceCreator = new DiceCreator();
+
         var totalBonus = 0f;
-        var casterLevel = 5f; // ContextEntity.Caster.Parameters.casterLevel;
         var level = MaxValue(casterLevel, maxLevel);
-        for (int i = 0; i < level; i++) {
+        for (int i = 0; i < level; i += interval) {
             totalBonus += (float)diceCreator[diceModifier].Result;
         }
         inValue += MaxValue(totalBonus, maxBonus);
@@ -53,17 +56,13 @@ public class HpModifier : AbilityModifier<Context> {
 
 public class StrModifier : AbilityModifier<Context> {
     public override void ApplyModifier<T>(T t, ref float inValue) {
-        int baseStr = this.user.strength.Value;
-        baseStr -= 20;
-        baseStr /= 2;
-        baseStr /= 2;
-        baseStr *= 5;
-
-        inValue = inValue + baseStr;
+        inValue = inValue + BaseFormulas.GetStrBonus(this.user.strength.Value);
     }
 }
 
-public class OneHandedWeaponModifier : AbilityModifier<SingleTargetContext> {
+
+
+public class OneHandedWeaponModifier : AbilityModifier<Context> {
     public float test;
     public MethodPointer<SingleTargetContext, float, float> formula;
     public override void ApplyModifier<T>(T t, ref float inValue) {
